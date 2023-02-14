@@ -18,8 +18,14 @@ jobs:
     - name: build
       run: g++ -Wall -Wextra -fprofile-arcs -ftest-coverage -o BMS_sender *.c
       
-    - name: run
+    - name: run help
       run: ./BMS_sender -h
+
+    - name: run test
+      run: ./BMS_sender -t
+
+    - name: run application
+      run: ./BMS_sender -s
 
     - name: collect coverage
       run: gcovr --gcov-exclude=".*test.*" -r . --html --html-details -o coverage.html --print-summary
