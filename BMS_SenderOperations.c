@@ -23,14 +23,26 @@ static int checkArgumentCount(int argc)
     return 0;
 }
 
+static int isOperationRequestMatch(char *argv, char expKey)
+{
+    if(argv[0] == '-')
+    {
+        if(argv[1] == expKey)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 static operation checkOperation(char *argv)
 {
     int index = 0;
-    char argument = argv[1];
 
     for(;index < BMS_MAX_OPERATIONS; index++)
     {
-        if(argument == BMS_OperationConfig[index].argument)
+        if(isOperationRequestMatch(argv, BMS_OperationConfig[index].argument))
         {
             return BMS_OperationConfig[index].bmsOperation;
         }
