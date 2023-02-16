@@ -8,6 +8,7 @@
 #include "BMS_Sender.h"
 
 #include "test_BMS_StreamSensorModule.h"
+#include "test_BMS_Operations.h"
 #include "test_BMS_Mock.h"
 
 void testSenderModule()
@@ -27,6 +28,7 @@ void testSenderModule()
 void test_BMS_Sender()
 {
     printf("Running test cases for BMS sensor stream sender module...\n");
+    testBMSOperations();
     testSenderModule();
     testStreamSensorDataModule();
     printf("All tests are successful\n");
