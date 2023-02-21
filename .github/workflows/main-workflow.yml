@@ -29,28 +29,28 @@ jobs:
           coverage run --branch Receiver_BMS_parameters_test.py
           coverage html
           coverage report
-    - name: install coverage tool
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gcovr
-    - name: build
-      run: g++ -Wall -Wextra -fprofile-arcs -ftest-coverage -o BMS_sender *.c
-      
-    - name: run help
-      run: ./BMS_sender -h
+      - name: install coverage tool
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y gcovr
+      - name: build
+        run: g++ -Wall -Wextra -fprofile-arcs -ftest-coverage -o receiver BMS_Receiver/*.c
+        
+      - name: run help
+        run: ./BMS_sender -h
+          
+      - name: run test
+        run: ./BMS_sender -t
+          
+      - name: run application
+        run: ./BMS_sender -r
 
-    - name: run test
-      run: ./BMS_sender -t
-
-    - name: run application
-      run: ./BMS_sender -r
-
-    - name: collect coverage
-      run: gcovr --gcov-exclude=".*test.*" -r . --html --html-details -o coverage.html --print-summary
-
-    - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage
-        path: ./*.html
-        retention-days: 21
+      - name: collect coverage
+        run: gcovr --gcov-exclude=".*test.*" -r . --html --html-details -o coverage_C.html --print-summary
+          
+      - name: Upload coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: ./htmlcov
+          retention-days: 21
